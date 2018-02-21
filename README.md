@@ -269,8 +269,28 @@ sudo service jenkins restart
 sudo chmod 664 /var/run/docker.sock
 ```
 
-[How to create a development infrastructure on a Linux VM in Azure with Jenkins, GitHub, and Docker](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/tutorial-jenkins-github-docker-cicd)
+[How to create a development infrastructure on a Linux VM in Azure with Jenkins, GitHub, and Docker](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/tutorial-jenkins-github-docker-cicd)  
 
-[Continuous deployment with Jenkins and Azure Container Service](https://docs.microsoft.com/en-us/azure/aks/jenkins-continuous-deployment)
+[Continuous deployment with Jenkins and Azure Container Service](https://docs.microsoft.com/en-us/azure/aks/jenkins-continuous-deployment)  
 
-https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-jenkins
+https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-kubernetes-jenkins  
+
+## ACS Engine
+Config ACS Engine to deply GPU on cluster node  
+[Microsoft Azure Container Service Engine - Kubernetes](https://github.com/CloudBreadPaPa/acs-engine/blob/master/docs/kubernetes.md)
+
+- Install acs-engine and basic usage
+https://github.com/CloudBreadPaPa/acs-engine/blob/master/docs/acsengine.md#install-acs-engine
+
+- Deploy acs-engine Kubernetes cluster
+https://github.com/CloudBreadPaPa/acs-engine/blob/master/docs/kubernetes/deploy.md
+```
+az login
+az account list -o table
+acs-engine deploy --subscription-id <SUBSCRIPTION_ID> --dns-prefix <DNS_NAME> --location eastus --auto-suffix --api-model examples/kubernetes.json
+```
+[acs-engine Kubernetes workthrough](https://github.com/CloudBreadPaPa/acs-engine/blob/master/docs/kubernetes/walkthrough.md)
+
+
+- acs-engine Kubernetes GPU
+[acs-engine GPU Kubernetes json script](https://github.com/CloudBreadPaPa/acs-engine/blob/master/examples/kubernetes-gpu/kubernetes.json)
