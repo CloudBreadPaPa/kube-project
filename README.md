@@ -291,6 +291,90 @@ acs-engine deploy --subscription-id <SUBSCRIPTION_ID> --dns-prefix <DNS_NAME> --
 ```
 [acs-engine Kubernetes workthrough](https://github.com/CloudBreadPaPa/acs-engine/blob/master/docs/kubernetes/walkthrough.md)
 
-
 - acs-engine Kubernetes GPU
 [acs-engine GPU Kubernetes json script](https://github.com/CloudBreadPaPa/acs-engine/blob/master/examples/kubernetes-gpu/kubernetes.json)
+
+## Monitoring - Datadog
+
+## PostgreSQL 
+
+- Create resource group
+```
+az group create --name dwrgpostgresql --location westus
+```
+
+- Deploy postgres server
+```
+az postgres server create --resource-group dwrgpostgresql --name dwpostgresql01  --location westus --admin-user konan94  --admin-password P@ssw0rdP@ssw0rd --performance-tier Basic --compute-units 50 --version 9.6
+```
+
+- Firewall setting
+```
+az postgres server firewall-rule create --resource-group dwrgpostgresql --server dwpostgresql01 --name AllowAllIps --start-ip-address 0.0.0.0 --end-ip-address 255.255.255.255
+```
+
+- Show server information
+```
+az postgres server show --resource-group dwrgpostgresql --name dwpostgresql01
+```
+
+- psql login and basic query
+```
+psql --host=dwpostgresql01.postgres.database.azure.com --port=5432 --username=konan94@dwpostgresql01 --dbname=postgres
+CREATE DATABASE mypgsqldb;
+\c mypgsqldb
+create table t1(c1 char, c2 char);
+insert into t1 values('1', '2');
+select * from t1;
+```
+- Delete resource group
+```
+az group delete --name dwrgpostgresql
+```
+
+## Persistent Volumn
+
+Azure file or Azure Disk
+Reference link : https://kubernetes.io/docs/concepts/storage/persistent-volumes/  
+
+- Create PVC
+```
+kubectl create -f deployment-storage.yaml
+```
+
+- Get PVC
+```
+kubectl get pvc
+```
+
+- Deploy MySQL w/ PVC
+```
+kubectl create -f deployment-mysql.yaml
+```
+
+- Deploy Wordpress w/ PVC
+```
+kubectl create -f deployment-wordpress.yaml
+```
+
+- Login to Wordpress and set data
+
+- Delete Pod and Services
+```
+kubectl delete pod wordpress
+kubectl delete pod wordpress-mysql
+kubectl delete services wordpress
+kubectl delete services wordpress-mysql
+kubectl delete deployment wordpress
+kubectl delete deployment wordpress-mysql
+```
+
+- Re-deploy and check the PV data
+
+
+
+
+
+
+
+
