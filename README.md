@@ -305,7 +305,7 @@ az group create --name dwrgpostgresql --location westus
 
 - Deploy postgres server
 ```
-az postgres server create --resource-group dwrgpostgresql --name dwpostgresql01  --location westus --admin-user konan94  --admin-password P@ssw0rdP@ssw0rd --performance-tier Basic --compute-units 50 --version 9.6
+az postgres server create --resource-group dwrgpostgresql --name dwpostgresql01  --location westus --admin-user <USERID>  --admin-password <PASSWORD> --performance-tier Basic --compute-units 50 --version 9.6
 ```
 
 - Firewall setting
@@ -320,7 +320,7 @@ az postgres server show --resource-group dwrgpostgresql --name dwpostgresql01
 
 - psql login and basic query
 ```
-psql --host=dwpostgresql01.postgres.database.azure.com --port=5432 --username=konan94@dwpostgresql01 --dbname=postgres
+psql --host=dwpostgresql01.postgres.database.azure.com --port=5432 --username=<USERID>@dwpostgresql01 --dbname=postgres
 CREATE DATABASE mypgsqldb;
 \c mypgsqldb
 create table t1(c1 char, c2 char);
